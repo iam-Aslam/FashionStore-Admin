@@ -17,17 +17,11 @@ class AddNewProductScreen extends StatefulWidget {
 
 class _AddNewProductScreenState extends State<AddNewProductScreen> {
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController subnameController = TextEditingController();
-
   final TextEditingController categoryController = TextEditingController();
-
   final TextEditingController quantityController = TextEditingController();
-
   final TextEditingController priceController = TextEditingController();
-
   final TextEditingController colorController = TextEditingController();
-
   final TextEditingController descriptionController = TextEditingController();
 
   List<String> imageList = [];

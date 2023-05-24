@@ -45,6 +45,7 @@ dependencies:
   cloud_firestore: ^4.7.1
   cached_network_image: ^3.2.3
   permission_handler: ^10.2.0
+  flutter_carousel_widget: ^2.0.2
 
 dev_dependencies:
   flutter_test:

@@ -42,3 +42,16 @@ void showSnackbar(BuildContext context, String message) {
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+Future<void> deleteProduct(String id, BuildContext context) {
+  CollectionReference products =
+      FirebaseFirestore.instance.collection('products');
+
+  return products.doc(id).delete().then((value) {
+    log("Product Deleted");
+    showSnackbar(context, "Product was deleted");
+  }).catchError((error) {
+    log("Failed to delete product: $error");
+    showSnackbar(context, "Failed to delete product");
+  });
+}

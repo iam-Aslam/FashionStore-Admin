@@ -1,10 +1,10 @@
 import 'dart:developer';
+import 'package:admin/presentation/home_screen/widgets/product_tiles.dart';
 import 'package:admin/presentation/login_screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 import 'widgets/add_new_product.dart';
-import 'widgets/order_tiles.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -98,13 +98,13 @@ class ScreenHome extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                //ProductsTiles(),
+                ProductsTiles(),
                 const Center(
                   child: Text('Hello '),
                 ),
-                SingleChildScrollView(
-                  child: OrdersTiles(),
-                ),
+                // SingleChildScrollView(
+                //   child: OrdersTiles(),
+                // ),
               ],
             ),
           ),
