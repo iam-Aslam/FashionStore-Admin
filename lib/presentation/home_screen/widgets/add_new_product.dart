@@ -188,10 +188,11 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
     final firebase_storage.FirebaseStorage storage =
         firebase_storage.FirebaseStorage.instance;
 
-    int index = imageList.length;
+    //int index = imageList.length;
 
-    firebase_storage.Reference ref =
-        storage.ref().child('images/$productName (${index + 1})');
+    DateTime now = DateTime.now();
+    String timestamp = now.microsecondsSinceEpoch.toString();
+    firebase_storage.Reference ref = storage.ref().child('images/$timestamp');
 
     firebase_storage.UploadTask task = ref.putFile(file);
 

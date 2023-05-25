@@ -57,7 +57,6 @@ class ProductsTiles extends StatelessWidget {
                           width: 50,
                           height: 50,
                           margin: const EdgeInsets.only(right: 10),
-                          // child: SvgPicture.asset('assets/no_image.svg'),
                           child: const Icon(Icons.no_photography_outlined),
                         ),
                   const SizedBox(
