@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/firebase_functions.dart';
+import 'product_details.dart';
 
 class ProductsTiles extends StatelessWidget {
   ProductsTiles({Key? key}) : super(key: key);
@@ -73,12 +74,12 @@ class ProductsTiles extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           ProductDetailsScreen(data: data),
-                      //     ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProductDetailsScreen(data: data),
+                          ));
                     },
                     icon: const Icon(
                       Icons.edit,

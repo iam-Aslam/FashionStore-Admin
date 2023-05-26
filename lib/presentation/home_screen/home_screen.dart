@@ -27,11 +27,6 @@ class ScreenHome extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    // onTap: () => Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => ViewProfileScreen(),
-                    //     )),
                     onTap: () {
                       FirebaseAuth.instance.signOut().then((value) {
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
@@ -46,10 +41,6 @@ class ScreenHome extends StatelessWidget {
                     child: const CircleAvatar(
                       radius: 20,
                       backgroundColor: Colors.grey,
-                      // child: SvgPicture.asset(
-                      //   "assets/person.svg",
-                      //   height: 20,
-                      // ),
                       child: Icon(Icons.person_3_outlined),
                     ),
                   ),
@@ -69,7 +60,6 @@ class ScreenHome extends StatelessWidget {
                       'Products',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        // color: kTextBlackColor,
                         fontSize: 18,
                       ),
                     ),
@@ -79,7 +69,6 @@ class ScreenHome extends StatelessWidget {
                       'Orders',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        // color: kTextBlackColor,
                         fontSize: 18,
                       ),
                     ),
@@ -102,9 +91,6 @@ class ScreenHome extends StatelessWidget {
                 const Center(
                   child: Text('Hello '),
                 ),
-                // SingleChildScrollView(
-                //   child: OrdersTiles(),
-                // ),
               ],
             ),
           ),

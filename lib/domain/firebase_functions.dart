@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:admin/presentation/home_screen/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'models/product_models.dart';
@@ -24,6 +25,39 @@ Future<void> addProduct(Products productsModel, BuildContext context) async {
   } catch (error) {
     showSnackbar(context, "Failed To Add Product: $error");
     log("Failed to add product: $error");
+  }
+}
+
+Future<void> updateProduct(
+    {required Products productsModel,
+    required String id,
+    required BuildContext context}) async {
+  final products = FirebaseFirestore.instance.collection('products');
+  final productRef = products.doc(id);
+
+  try {
+    showSnackbar(context, "Product was updated");
+    await productRef.update({
+      'category': productsModel.category,
+      'description': productsModel.description,
+      'image': productsModel.imageList,
+      'name': productsModel.productName,
+      'price': productsModel.price,
+      'subname': productsModel.subname,
+      'quantity': productsModel.quantity,
+      'color': productsModel.color,
+    }).then((value) {
+      showSnackbar(context, 'Product Updated');
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const ScreenHome();
+        },
+      ));
+    });
+    log("Product Updated");
+  } catch (error) {
+    showSnackbar(context, "Failed to update product: $error");
+    log("Failed to update product: $error");
   }
 }
 
@@ -54,4 +88,19 @@ Future<void> deleteProduct(String id, BuildContext context) {
     log("Failed to delete product: $error");
     showSnackbar(context, "Failed to delete product");
   });
+}
+
+Future<void> addMoreImage(List imageList, String id) async {
+  final products = FirebaseFirestore.instance.collection('products');
+  final productRef = products.doc(id);
+  try {
+    // showSnackbar(context, "Product was updated");
+    await productRef.update({
+      'image': imageList,
+    });
+    log("Product Updated");
+  } catch (error) {
+    // showSnackbar(context, "Failed to update product: $error");
+    log("Failed to update product: $error");
+  }
 }

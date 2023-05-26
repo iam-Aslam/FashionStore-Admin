@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../domain/firebase_functions.dart';
+import '../../../domain/models/product_models.dart';
 import '../../constants/constants.dart';
 import '../../widgets/textfield_widget.dart';
 
@@ -23,7 +24,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   final TextEditingController nameController = TextEditingController();
 
-  final TextEditingController brandController = TextEditingController();
+  final TextEditingController subnameController = TextEditingController();
 
   final TextEditingController categoryController = TextEditingController();
 
@@ -31,18 +32,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   final TextEditingController priceController = TextEditingController();
 
-  final TextEditingController actualPriceController = TextEditingController();
+  final TextEditingController colorController = TextEditingController();
 
   final TextEditingController descriptionController = TextEditingController();
-
-  final TextEditingController longDescriptionController =
-      TextEditingController();
 
   List imageList = [];
 
   @override
   void initState() {
-    imageList = widget.data['networkImageList'];
+    imageList = widget.data['image'];
     log(imageList.toString());
     super.initState();
   }
@@ -85,8 +83,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 },
                                 child: SizedBox(
                                     width: size.width * 0.7,
-                                    child: Image.network(
-                                        widget.data["networkImageList"][0])),
+                                    child:
+                                        Image.network(widget.data["image"][0])),
                               )
                             : Stack(
                                 children: [
@@ -127,51 +125,56 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         //       ),
                                         //     ));
                                       },
-                                      icon: SvgPicture.asset('assets/edit.svg'),
+                                      icon: const Icon(
+                                          Icons.add_a_photo_outlined),
                                     ),
                                   ),
                                 ],
                               ),
                       ),
                       Visibility(
-                          visible: !editOrUpdate,
-                          child: TextButton.icon(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor: Colors.transparent,
+                        visible: !editOrUpdate,
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.black,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            editOrUpdate ? null : pickMoreImage();
+                          },
+                          label: const Text(
+                            "Add Image",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                            onPressed: () {
-                              //editOrUpdate ? null : pickMoreImage();
-                            },
-                            label: const Text(
-                              "Add more images",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            icon: const Icon(Icons.add),
-                          )),
+                          ),
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                       DetailsTextFieldWidget(
                         size: size,
                         fieldName: "Product Name",
-                        textString: widget.data["productName"],
+                        textString: widget.data["name"] ?? 'No name',
                         textController: nameController,
                         enableTextField: !editOrUpdate,
                         // enableTextField: false,
                       ),
                       DetailsTextFieldWidget(
                         size: size,
-                        fieldName: "Brand",
+                        fieldName: "SubName",
                         enableTextField: !editOrUpdate,
-                        textString: widget.data["brand"],
-                        textController: brandController,
+                        textString: widget.data["subname"] ?? 'No Subname',
+                        textController: subnameController,
                       ),
                       DetailsTextFieldWidget(
                         size: size,
                         fieldName: "Category",
                         enableTextField: !editOrUpdate,
-                        textString: widget.data["category"],
+                        textString: widget.data["category"] ?? 'No Category',
                         textController: categoryController,
                       ),
                       DetailsTextFieldWidget(
@@ -190,28 +193,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       DetailsTextFieldWidget(
                         size: size,
-                        fieldName: "Actual Price",
+                        fieldName: "Color",
                         enableTextField: !editOrUpdate,
-                        textString: widget.data["actualPrice"].toString(),
-                        textController: actualPriceController,
+                        textString: widget.data["color"] ?? 'No Color',
+                        textController: colorController,
                       ),
                       DetailsTextFieldWidget(
                         size: size,
                         fieldName: "Description",
                         enableTextField: !editOrUpdate,
-                        textString: widget.data["description"],
+                        textString: widget.data["description"] ??
+                            'No Description Available Now',
                         textController: descriptionController,
-                        height: 100,
+                        height: 150,
                         maxLines: 2,
-                      ),
-                      DetailsTextFieldWidget(
-                        size: size,
-                        fieldName: "Long Description",
-                        textString: widget.data["long description"],
-                        textController: longDescriptionController,
-                        enableTextField: !editOrUpdate,
-                        height: 130,
-                        maxLines: 4,
                       ),
                       SizedBox(
                         height: size.height * 0.1,
@@ -231,23 +226,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               valueListenable: editNotifier,
               builder: (context, editOrUpdate, child) => TextButton(
                 onPressed: () {
-                  // editNotifier.value = !editNotifier.value;
-                  // editOrUpdate
-                  //     ? null
-                  //     : updateProduct(
-                  //         Products(
-                  //             brand: brandController.text,
-                  //             category: categoryController.text,
-                  //             quantity: int.parse(quantityController.text),
-                  //             price: int.parse(priceController.text),
-                  //             actualPrice:
-                  //                 int.parse(actualPriceController.text.trim()),
-                  //             description: descriptionController.text,
-                  //             longDescription: longDescriptionController.text,
-                  //             networkImageList: imageList,
-                  //             productName: nameController.text),
-                  //         widget.data['id'],
-                  //         context);
+                  editNotifier.value = !editNotifier.value;
+                  editOrUpdate
+                      ? null
+                      : updateProduct(
+                          context: context,
+                          id: widget.data['id'],
+                          productsModel: Products(
+                            subname: subnameController.text,
+                            category: categoryController.text,
+                            quantity: int.parse(quantityController.text),
+                            price: int.parse(priceController.text),
+                            color: colorController.text,
+                            description: descriptionController.text,
+                            imageList: imageList,
+                            productName: nameController.text,
+                          ),
+                        );
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -286,29 +281,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     } else {
       File file = File(pickedFile.path);
       String imageUrl = await _uploadFirstImage(
-          file, widget.data['productName'], widget.data['networkImageList']);
+          file, widget.data['name'], widget.data['image']);
       setState(() {
         imageList.add(imageUrl);
       });
     }
   }
 
-  // void pickMoreImage() async {
-  //   final pickedFile =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+  void pickMoreImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
-  //   if (pickedFile == null) {
-  //     return;
-  //   } else {
-  //     File file = File(pickedFile.path);
-  //     imageList = await _uploadMoreImage(file, widget.data['productName'],
-  //         widget.data['networkImageList'], widget.data['id']);
+    if (pickedFile == null) {
+      return;
+    } else {
+      File file = File(pickedFile.path);
+      imageList = await _uploadMoreImage(file, widget.data['productName'],
+          widget.data['networkImageList'], widget.data['id']);
 
-  //     setState(() {
-  //       imageList = imageList;
-  //     });
-  //   }
-  // }
+      setState(() {
+        imageList = imageList;
+      });
+    }
+  }
 }
 
 Future<String> _uploadFirstImage(
@@ -335,26 +330,26 @@ Future<String> _uploadFirstImage(
   return downloadURL;
 }
 
-// Future<List> _uploadMoreImage(
-//     File file, String productName, List imageList, String id) async {
-//   final FirebaseStorage storage = FirebaseStorage.instance;
+Future<List> _uploadMoreImage(
+    File file, String productName, List imageList, String id) async {
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
-//   int index = imageList.length;
+  int index = imageList.length;
 
-//   Reference ref = storage.ref().child('images/$productName (${index + 1})');
+  Reference ref = storage.ref().child('images/$productName (${index + 1})');
 
-//   UploadTask task = ref.putFile(file);
+  UploadTask task = ref.putFile(file);
 
-//   task.snapshotEvents.listen((TaskSnapshot snapshot) {
-//     log('Upload progress: ${snapshot.bytesTransferred}/${snapshot.totalBytes}');
-//   });
+  task.snapshotEvents.listen((TaskSnapshot snapshot) {
+    log('Upload progress: ${snapshot.bytesTransferred}/${snapshot.totalBytes}');
+  });
 
-//   await task;
+  await task;
 
-//   String downloadURL = await ref.getDownloadURL();
-//   log('File uploaded successfully: $downloadURL');
-//   imageList.add(downloadURL);
-//   addMoreImage(imageList, id);
+  String downloadURL = await ref.getDownloadURL();
+  log('File uploaded successfully: $downloadURL');
+  imageList.add(downloadURL);
+  addMoreImage(imageList, id);
 
-//   return imageList;
-// }
+  return imageList;
+}
