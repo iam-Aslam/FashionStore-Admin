@@ -1,3 +1,4 @@
+import 'package:admin/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class DetailsTextFieldWidget extends StatelessWidget {
@@ -35,7 +36,7 @@ class DetailsTextFieldWidget extends StatelessWidget {
         : null;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
       child: Container(
         height: height,
         decoration: BoxDecoration(
@@ -50,27 +51,19 @@ class DetailsTextFieldWidget extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                fieldName,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),
-              ),
-              TextField(
+              khieght10,
+              TextFormField(
                 // maxLength: 50,
                 controller: textController,
                 maxLines: maxLines,
                 enabled: enableTextField,
                 obscureText: hideField,
                 keyboardType: numPad ? TextInputType.phone : null,
-                decoration: const InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: 'Enter here',
-                  border: InputBorder.none,
-                  labelStyle: TextStyle(
-                    color: Colors.transparent,
+                decoration: InputDecoration(
+                  labelText: fieldName,
+                  labelStyle: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
                   ),
                 ),
               ),
