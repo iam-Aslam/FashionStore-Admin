@@ -96,26 +96,22 @@ class _LogInState extends State<LogIn> {
                             }
                           },
                           decoration: InputDecoration(
-                              labelText: 'Password',
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    //add Icon button at end of TextField
-                                    setState(() {
-                                      //refresh UI
-                                      if (passenable) {
-                                        //if passenable == true, make it false
-                                        passenable = false;
-                                      } else {
-                                        passenable =
-                                            true; //if passenable == false, make it true
-                                      }
-                                    });
-                                  },
-                                  icon: Icon(passenable == true
-                                      ? Icons.remove_red_eye
-                                      : Icons.password))
-                              //eye icon if passenable = true, else, Icon is ***__
-                              ),
+                            labelText: 'Password',
+                            suffix: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (passenable) {
+                                    passenable = false;
+                                  } else {
+                                    passenable = true;
+                                  }
+                                });
+                              },
+                              icon: Icon(passenable == true
+                                  ? Icons.remove_red_eye
+                                  : Icons.password),
+                            ),
+                          ),
                         ),
                         khieght5,
                         Row(
