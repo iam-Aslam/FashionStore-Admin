@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:admin/presentation/Search/search_screen.dart';
 import 'package:admin/presentation/home_screen/widgets/product_tiles.dart';
 import 'package:admin/presentation/login_screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,23 +27,38 @@ class ScreenHome extends StatelessWidget {
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      FirebaseAuth.instance.signOut().then((value) {
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const LogIn();
-                          },
-                        ), (route) => false);
-                      }).onError((error, stackTrace) {
-                        log("Error ${error.toString()}");
-                      });
-                    },
-                    child: const CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.grey,
-                      child: Icon(Icons.person_3_outlined),
-                    ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const SearchScreen();
+                            },
+                          ));
+                        },
+                        icon: const Icon(Icons.search),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          FirebaseAuth.instance.signOut().then((value) {
+                            Navigator.pushAndRemoveUntil(context,
+                                MaterialPageRoute(
+                              builder: (context) {
+                                return const LogIn();
+                              },
+                            ), (route) => false);
+                          }).onError((error, stackTrace) {
+                            log("Error ${error.toString()}");
+                          });
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.grey,
+                          child: Icon(Icons.person_3_outlined),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

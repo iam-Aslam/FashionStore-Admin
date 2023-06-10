@@ -46,6 +46,7 @@ dependencies:
   cached_network_image: ^3.2.3
   permission_handler: ^10.2.0
   flutter_carousel_widget: ^2.0.2
+  shimmer_animation: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,8 @@ const khieght40 = SizedBox(height: 40);
 const khieght50 = SizedBox(height: 50);
 const khieght60 = SizedBox(height: 60);
 
+const kwidth60 = SizedBox(width: 60);
+const kwidth10 = SizedBox(width: 10);
 //colors
 const kTextBlackColor = Colors.black;
 const Color kMainBgColor = Colors.white;
