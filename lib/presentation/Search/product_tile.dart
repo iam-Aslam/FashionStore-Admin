@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/constants.dart';
 
 class ProductTile extends StatelessWidget {
-  // final int index;
   final String id;
   final String name;
   final String subname;
@@ -15,7 +14,6 @@ class ProductTile extends StatelessWidget {
 
   const ProductTile({
     Key? key,
-    //required this.index,
     required this.id,
     required this.name,
     required this.subname,
@@ -27,21 +25,7 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // log('Hello I a product ${index.toString} tile on tap...');
-        // Navigator.push(context, MaterialPageRoute(
-        //   builder: (context) {
-        //     return ProductDetailScreen(
-        //       id: id,
-        //       name: name,
-        //       subname: subname,
-        //       rate: rate,
-        //       image: image,
-        //       description: description,
-        //     );
-        //   },
-        // ));
-      },
+      onTap: () {},
       child: Column(
         children: [
           Container(
