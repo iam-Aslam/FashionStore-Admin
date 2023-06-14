@@ -1,7 +1,6 @@
 import 'package:admin/presentation/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../../domain/firebase_functions.dart';
 import 'product_details.dart';
 

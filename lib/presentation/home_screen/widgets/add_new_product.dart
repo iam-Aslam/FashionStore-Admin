@@ -25,21 +25,10 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
   final TextEditingController descriptionController = TextEditingController();
   List<String> categoriesList = ["Men", "Women", "Children", "Others"];
   List<String> imageList = [];
-  // late String dropdownCategoryValue;
-  // String dropdownCategoryValue =
-  //     ''; // 1. Declare dropdownCategoryValue as a state variable
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   dropdownCategoryValue =
-  //       'Default Category'; // 2. Initialize dropdownCategoryValue with a default value
-  // }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    //dropdownCategoryValue = categoriesList.first;
     return Scaffold(
       backgroundColor: kMainBgColor,
       appBar: AppBar(
@@ -118,53 +107,6 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               fieldName: "Category",
               textController: categoryController,
             ),
-            // StatefulBuilder(
-            //   builder: (context, setState) {
-            //     return Padding(
-            //       padding: EdgeInsets.only(
-            //           left: size.width * 0.13, right: size.width * 0.13),
-            //       child: Container(
-            //         width: size.width * 0.9,
-            //         height: size.width * 0.13,
-            //         decoration: const BoxDecoration(
-            //             border: Border(
-            //               bottom: BorderSide(color: Colors.black87, width: 1),
-            //             ),
-            //             //borderRadius: BorderRadius.circular(20),
-            //             color: Colors.white),
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(12.0),
-            //           child: DropdownButtonHideUnderline(
-            //             child: DropdownButton<String>(
-            //               hint: const Text('Category'),
-            //               value: dropdownCategoryValue,
-            //               icon: const Icon(Icons.arrow_downward_sharp),
-            //               elevation: 8,
-            //               style: const TextStyle(color: Colors.black),
-            //               disabledHint: Container(
-            //                 height: 2,
-            //                 color: Colors.black,
-            //               ),
-            //               onChanged: (String? value) {
-            //                 // This is called when the user selects an item.
-            //                 setState(() {
-            //                   dropdownCategoryValue = value!;
-            //                 });
-            //               },
-            //               items: categoriesList
-            //                   .map<DropdownMenuItem<String>>((String value) {
-            //                 return DropdownMenuItem<String>(
-            //                   value: value,
-            //                   child: Text(value),
-            //                 );
-            //               }).toList(),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
             DetailsTextFieldWidget(
               size: size,
               fieldName: "Quantity",

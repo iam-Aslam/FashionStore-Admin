@@ -112,19 +112,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     top: 0,
                                     right: 0,
                                     child: IconButton(
-                                      onPressed: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //       builder: (context) =>
-                                        //           EditImageScreen(
-                                        //         imageList: imageList,
-                                        //         id: widget.data['id'],
-                                        //         productName:
-                                        //             widget.data['productName'],
-                                        //       ),
-                                        //     ));
-                                      },
+                                      onPressed: () {},
                                       icon: const Icon(
                                           Icons.add_a_photo_outlined),
                                     ),
