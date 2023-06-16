@@ -59,7 +59,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                     return;
                   } else {
                     File file = File(pickedFile.path);
-                    imageList = await _uploadImage(file, nameController.text);
+                    imageList = await _uploadImage(file);
                     setState(() {});
                   }
                 },
@@ -179,7 +179,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
     );
   }
 
-  Future<List<String>> _uploadImage(File file, String productName) async {
+  Future<List<String>> _uploadImage(File file) async {
     final firebase_storage.FirebaseStorage storage =
         firebase_storage.FirebaseStorage.instance;
 
