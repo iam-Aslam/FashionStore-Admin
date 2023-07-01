@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:admin/presentation/home_screen/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'models/product_models.dart';
 
 Future<void> addProduct(Products productsModel, BuildContext context) async {
@@ -102,5 +103,45 @@ Future<void> addMoreImage(List imageList, String id) async {
   } catch (error) {
     // showSnackbar(context, "Failed to update product: $error");
     log("Failed to update product: $error");
+  }
+}
+
+Stream<DocumentSnapshot> getProductData(String productId) {
+  final CollectionReference productsCollection =
+      FirebaseFirestore.instance.collection('products');
+
+  return productsCollection.doc(productId).snapshots();
+}
+
+//order activation function
+Future<void> updateOrderStatus(String orderId, bool isActive) async {
+  try {
+    // Get a reference to the Firestore collection
+    CollectionReference ordersCollection =
+        FirebaseFirestore.instance.collection('orders');
+
+    // Update the isActive field of the document with the provided orderId
+    await ordersCollection.doc(orderId).update({'active': isActive});
+
+    // Show a toast message
+    Fluttertoast.showToast(
+      msg: 'Order status updated successfully',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+    );
+  } catch (e) {
+    log('Error updating order status: $e');
+    // Show a toast message for the error
+    Fluttertoast.showToast(
+      msg: 'Error updating order status',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
   }
 }

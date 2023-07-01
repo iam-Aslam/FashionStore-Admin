@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 import 'widgets/add_new_product.dart';
+import 'widgets/order_widget.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -104,9 +105,7 @@ class ScreenHome extends StatelessWidget {
             body: TabBarView(
               children: <Widget>[
                 ProductsTiles(),
-                const Center(
-                  child: Text('Hello '),
-                ),
+                const ActiveWidget(),
               ],
             ),
           ),
