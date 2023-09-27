@@ -130,7 +130,6 @@ class _LogInState extends State<LogIn> {
                                 'Forgot Password?',
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
-                                    // letterSpacing: .5,
                                     fontSize: 12,
                                     color: Colors.black,
                                   ),

@@ -53,7 +53,6 @@ class DetailsTextFieldWidget extends StatelessWidget {
               ),
               khieght10,
               TextFormField(
-                // maxLength: 50,
                 controller: textController,
                 maxLines: maxLines,
                 enabled: enableTextField,

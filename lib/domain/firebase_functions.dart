@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:admin/presentation/home_screen/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
